@@ -1,18 +1,4 @@
---[[
-     _      ___         ____  ______
-    | | /| / (_)__  ___/ / / / /  _/
-    | |/ |/ / / _ \/ _  / /_/ // /  
-    |__/|__/_/_//_/\_,_/\____/___/
-    
-    v1.6.62  |  2025-11-22  |  Roblox UI Library for scripts
-    
-    To view the source code, see the `src/` folder on the official GitHub repository.
-    
-    Author: Footagesus (Footages, .ftgs, oftgs)
-    Github: https://github.com/ui/library
-    Discord: 
-    License: MIT
-]]
+
 
 local a a={cache={}, load=function(b)if not a.cache[b]then a.cache[b]={c=a[b]()}end return a.cache[b].c end}do function a.a()return{
 
@@ -74,7 +60,6 @@ local h=b(game:GetService"HttpService")local i=
 
 d.Heartbeat
 
-local j="https://raw.githubusercontent.com/Footagesus/Icons/main/Main-v2.lua"
 
 local l={SetIconsType=function()end,Icon=function()return{"rbxassetid://0",{ImageRectSize=Vector2.new(0,0),ImageRectPosition=Vector2.new(0,0)}}end,Init=function()end,AddIcons=function()end,Image=function(r)local fr=Instance.new("Frame")fr.BackgroundTransparency=1 fr.Size=(r and r.Size)or UDim2.new(1,0,1,0)local ic=Instance.new("Frame")ic.Name="IconFrame"ic.BackgroundTransparency=1 ic.Size=UDim2.new(1,0,1,0)ic.Parent=fr return{IconFrame=ic}end}
 
@@ -1104,7 +1089,7 @@ end
 return aa end function a.h()
 return{
 keysvc={
-Name="KeySys1",
+Name="System1",
 Icon="rbxassetid://75920162824531",
 Args={"ServiceId","Secret"},
 
@@ -1112,15 +1097,15 @@ Args={"ServiceId","Secret"},
 New=a.load'e'.New
 },
 keysvc2={
-Name="KeySys2",
-Icon="panda",
+Name="System2",
+Icon="rbxassetid://0",
 Args={"ServiceId"},
 
 
 New=a.load'f'.New
 },
 keysvc3={
-Name="KeySys3",
+Name="System3",
 Icon="rbxassetid://130918283130165",
 Args={"ScriptId","Discord"},
 
@@ -1134,16 +1119,16 @@ New=a.load'g'.New
 return[[
 {
     "name": "uifw",
-    "version": "1.6.62",
-    "main": "./dist/main.lua",
+    "version": "1.0.0",
+    "main": "./main.lua",
     "repository": "https://github.com/ui/library",
     "discord": "",
     "author": "Dev",
     "description": "Roblox UI Library for scripts",
     "license": "MIT",
     "scripts": {
-        "dev": "bash build/build.sh dev $INPUT_FILE",
-        "build": "bash build/build.sh build $INPUT_FILE",
+        "dev": "",
+        "build": "",
         "live": "python -m http.server 8642",
         "watch": "chokidar . -i 'node_modules' -i 'dist' -i 'build' -c 'npm run dev --'",
         "live-build": "concurrently \"npm run live\" \"npm run watch --\"",
@@ -1610,7 +1595,7 @@ local ae=a.load'j'.New
 local af=a.load'k'.New
 
 function aa.new(ag,ah,ai,aj)
-local ak=a.load'l'.Init(nil,ag.WindUI.ScreenGui.KeySystem)
+local ak=a.load'l'.Init(nil,ag.Lib.ScreenGui.KeySystem)
 local al=ak.Create(true)
 
 local am={}
@@ -1920,7 +1905,7 @@ PaddingBottom=UDim.new(0,10),
 })
 
 for d,f in next,ag.KeySystem.API do
-local g=ag.WindUI.Services[f.Type]
+local g=ag.Lib.Services[f.Type]
 if g then
 local h={}
 for j,l in next,g.Args do
@@ -2006,7 +1991,7 @@ ad(r,0.08,{ImageTransparency=1}):Play()
 end)
 ab.AddSignal(r.MouseButton1Click,function()
 m.Copy()
-ag.WindUI:Notify{
+ag.Lib:Notify{
 Title="Key System",
 Content="Key link copied to clipboard.",
 Image="key",
@@ -2051,7 +2036,7 @@ task.wait(.4)
 ai(true)
 end
 else
-ag.WindUI:Notify{
+ag.Lib:Notify{
 Title="Key System. Error",
 Content="Invalid key.",
 Icon="triangle-alert",
@@ -2085,7 +2070,7 @@ end
 if aC then
 handleSuccess(aA)
 else
-ag.WindUI:Notify{
+ag.Lib:Notify{
 Title="Key System. Error",
 Content=aD,
 Icon="triangle-alert",
@@ -2480,7 +2465,7 @@ Buttons=ae.Buttons,
 IconSize=22,
 }
 
-local ag=a.load'l'.Init(nil,ae.WindUI.ScreenGui.Popups)
+local ag=a.load'l'.Init(nil,ae.Lib.ScreenGui.Popups)
 local ah=ag.Create(true,"Popup")
 
 local ai=200
@@ -2502,7 +2487,7 @@ ak=ab.Image(
 af.Icon,
 af.Title..":"..af.Icon,
 0,
-ae.WindUI.Window,
+ae.Lib.Window,
 "Popup",
 true,
 ae.IconThemed,
@@ -6088,7 +6073,7 @@ Position=UDim2.new(-10,0,-10,0),
 Visible=false,
 Active=false,
 
-Parent=am.WindUI.DropdownGui,
+Parent=am.Lib.DropdownGui,
 AnchorPoint=Vector2.new(1,0),
 },{
 an.UIElements.Menu,
@@ -7187,7 +7172,7 @@ toclipboard(al.Code)
 if al.OnCopy then al.OnCopy()end
 end)
 if not ao then
-ak.WindUI:Notify{
+ak.Lib:Notify{
 Title="Error",
 Content="The "..an.." is not copied. Error: "..ap,
 Icon="x",
@@ -7195,7 +7180,7 @@ Duration=5,
 }
 end
 end
-end,ak.WindUI.UIScale,al)
+end,ak.Lib.UIScale,al)
 
 function al.SetCode(ao,ap)
 an.Set(ap)
@@ -8138,7 +8123,7 @@ VerticalAlignment="Top",
 
 local aq=ak.ElementsModule
 
-aq.Load(al,ap.Content,aq.Elements,ak.Window,ak.WindUI,function()
+aq.Load(al,ap.Content,aq.Elements,ak.Window,ak.Lib,function()
 if not al.Expandable then
 al.Expandable=true
 an.Visible=true
@@ -8345,7 +8330,7 @@ ak,
 al,
 am.Elements,
 aj.Window,
-aj.WindUI,
+aj.Lib,
 function(an,ao)
 local ap=aj.Tab and aj.Tab.Gap or(aj.Window.NewElements and 1 or 6)
 
@@ -8425,7 +8410,7 @@ ar.Index=#aa.Elements+1
 ar.GlobalIndex=#ah.AllElements+1
 ar.Parent=ae
 ar.Window=ah
-ar.WindUI=aj
+ar.Lib=aj
 ar.UIScale=am
 ar.ElementsModule=al local
 
@@ -8448,7 +8433,7 @@ end)
 if ax then
 ah.PendingConfigData[ar.Flag]=nil
 else
-warn("[ WindUI ] Failed to apply pending config for '"..ar.Flag.."': "..tostring(ay))
+warn("[ Config ] Failed for '"),..ar.Flag.."': "..tostring(ay))
 end
 end)
 end
@@ -8558,7 +8543,7 @@ OnChangeFunc=function(am)end
 
 function am.Init(an,ao,ap,aq)
 Window=an
-WindUI=ao
+Lib=ao
 am.ToolTipParent=ap
 am.TabHighlight=aq
 return am
@@ -8895,7 +8880,7 @@ end
 
 local az=a.load'T'
 
-az.Load(ap,ap.UIElements.ContainerFrame,az.Elements,Window,WindUI,nil,az,ao)
+az.Load(ap,ap.UIElements.ContainerFrame,az.Elements,Window,Lib,nil,az,ao)
 
 
 
@@ -10318,7 +10303,7 @@ local f=aj.Request{Url=aF,Method="GET",Headers={["User-Agent"]="Mozilla/5.0"}}
 writefile(d,f.Body)
 end)
 if not f then
-warn("[ WindUI.Window.Background ] Failed to download video: "..tostring(g))
+warn("[ Bg ] video dl failed: "..tostring(g))
 return
 end
 end
@@ -10327,10 +10312,10 @@ local f,g=pcall(function()
 return getcustomasset(d)
 end)
 if not f then
-warn("[ WindUI.Window.Background ] Failed to load custom asset: "..tostring(g))
+warn("[ Bg ] asset load failed: "..tostring(g))
 return
 end
-warn"[ WindUI.Window.Background ] VideoFrame may not work with custom video"
+warn"[ UI.Window.Background ] VideoFrame may not work with custom video"
 aF=g
 end
 
@@ -10460,7 +10445,7 @@ Parent=ar.Parent,
 AnchorPoint=Vector2.new(0.5,0.5),
 Active=true,
 },{
-ar.WindUI.UIScaleObj,
+ar.Lib.UIScaleObj,
 as.AcrylicPaint and as.AcrylicPaint.Frame or nil,
 az,
 aj.NewRoundFrame(as.UICorner,"Squircle",{
@@ -10593,24 +10578,24 @@ PaddingBottom=UDim.new(0,as.UIPadding),
 
 aj.AddSignal(as.UIElements.Main.Main.Topbar.Left:GetPropertyChangedSignal"AbsoluteSize",function()
 local j=0
-local l=as.UIElements.Main.Main.Topbar.Right.UIListLayout.AbsoluteContentSize.X/ar.WindUI.UIScale
+local l=as.UIElements.Main.Main.Topbar.Right.UIListLayout.AbsoluteContentSize.X/ar.Lib.UIScale
 if h and f then
-j=math.max(h.TextBounds.X/ar.WindUI.UIScale,f.TextBounds.X/ar.WindUI.UIScale)
+j=math.max(h.TextBounds.X/ar.Lib.UIScale,f.TextBounds.X/ar.Lib.UIScale)
 else
-j=h.TextBounds.X/ar.WindUI.UIScale
+j=h.TextBounds.X/ar.Lib.UIScale
 end
 if g then
-j=j+(as.IconSize/ar.WindUI.UIScale)+(as.UIPadding/ar.WindUI.UIScale)+(4/ar.WindUI.UIScale)
+j=j+(as.IconSize/ar.Lib.UIScale)+(as.UIPadding/ar.Lib.UIScale)+(4/ar.Lib.UIScale)
 end
 as.UIElements.Main.Main.Topbar.Center.Position=UDim2.new(
 0,
-j+(as.UIPadding/ar.WindUI.UIScale),
+j+(as.UIPadding/ar.Lib.UIScale),
 0.5,
 0
 )
 as.UIElements.Main.Main.Topbar.Center.Size=UDim2.new(
 1,
--j-l-((as.UIPadding*2)/ar.WindUI.UIScale),
+-j-l-((as.UIPadding*2)/ar.Lib.UIScale),
 1,
 0
 )
@@ -10719,7 +10704,7 @@ end
 as.UIElements.BackgroundGradient=aj.NewRoundFrame(as.UICorner,"Squircle",{
 Size=UDim2.new(1,0,1,0),
 Parent=as.UIElements.Main.Background,
-ImageTransparency=as.Transparent and ar.WindUI.TransparencyValue or 0
+ImageTransparency=as.Transparent and ar.Lib.TransparencyValue or 0
 },{
 l
 })
@@ -10813,7 +10798,7 @@ end
 
 function as.SetBackgroundTransparency(l,m)
 local p=math.floor(tonumber(m)*10+0.5)/10
-ar.WindUI.TransparencyValue=p
+ar.Lib.TransparencyValue=p
 as:ToggleTransparency(p>0)
 end
 
@@ -10888,7 +10873,7 @@ function as.OnDestroy(p,r)
 as.OnDestroyCallback=r
 end
 
-if ar.WindUI.UseAcrylic then
+if ar.Lib.UseAcrylic then
 as.AcrylicPaint.AddParent(as.UIElements.Main)
 end
 
@@ -10920,7 +10905,7 @@ task.wait(.06)
 as.Closed=false
 
 al(as.UIElements.Main.Background,0.2,{
-ImageTransparency=as.Transparent and ar.WindUI.TransparencyValue or 0,
+ImageTransparency=as.Transparent and ar.Lib.TransparencyValue or 0,
 },Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 
 if as.UIElements.BackgroundGradient then
@@ -10972,7 +10957,7 @@ task.spawn(function()
 task.wait(.05)
 as.UIElements.Main:WaitForChild"Main".Visible=true
 
-ar.WindUI:ToggleAcrylic(true)
+ar.Lib:ToggleAcrylic(true)
 end)
 end)
 end
@@ -10985,7 +10970,7 @@ aj.SafeCallback(as.OnCloseCallback)
 end)
 end
 
-ar.WindUI:ToggleAcrylic(false)
+ar.Lib:ToggleAcrylic(false)
 
 as.UIElements.Main:WaitForChild"Main".Visible=false
 
@@ -11046,9 +11031,9 @@ as.AcrylicPaint.Model:Destroy()
 end
 as.Destroyed=true
 task.wait(0.4)
-ar.WindUI.ScreenGui:Destroy()
-ar.WindUI.NotificationGui:Destroy()
-ar.WindUI.DropdownGui:Destroy()
+ar.Lib.ScreenGui:Destroy()
+ar.Lib.NotificationGui:Destroy()
+ar.Lib.DropdownGui:Destroy()
 
 aj.DisconnectAll()
 
@@ -11073,9 +11058,9 @@ end
 function as.ToggleTransparency(p,r)
 
 as.Transparent=r
-ar.WindUI.Transparent=r
+ar.Lib.Transparent=r
 
-as.UIElements.Main.Background.ImageTransparency=r and ar.WindUI.TransparencyValue or 0
+as.UIElements.Main.Background.ImageTransparency=r and ar.Lib.TransparencyValue or 0
 
 as.UIElements.MainBar.Background.ImageTransparency=r and 0.97 or 0.95
 
@@ -11111,12 +11096,12 @@ return r
 end
 
 function as.GetUIScale(p,r)
-return ar.WindUI.UIScale
+return ar.Lib.UIScale
 end
 
 function as.SetUIScale(p,r)
-ar.WindUI.UIScale=r
-al(ar.WindUI.UIScaleObj,.2,{Scale=r},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+ar.Lib.UIScale=r
+al(ar.Lib.UIScaleObj,.2,{Scale=r},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 return as
 end
 
@@ -11192,14 +11177,14 @@ end
 
 local p=a.load'U'
 local r=a.load'V'
-local u=p.Init(as,ar.WindUI,ar.Parent.Parent.ToolTips)
+local u=p.Init(as,ar.Lib,ar.Parent.Parent.ToolTips)
 u:OnChange(function(v)as.CurrentTab=v end)
 
 as.TabModule=p
 
 function as.Tab(v,x)
 x.Parent=as.UIElements.SideBar.Frame
-return u.New(x,ar.WindUI.UIScale)
+return u.New(x,ar.Lib.UIScale)
 end
 
 function as.SelectTab(v,x)
@@ -11207,7 +11192,7 @@ u:SelectTab(x)
 end
 
 function as.Section(v,x)
-return r.New(x,as.UIElements.SideBar.Frame,as.Folder,ar.WindUI.UIScale,as)
+return r.New(x,as.UIElements.SideBar.Frame,as.Folder,ar.Lib.UIScale,as)
 end
 
 function as.IsResizable(v,x)
@@ -11382,8 +11367,8 @@ end
 
 wait()
 
-local R=J.AbsoluteContentSize.X/ar.WindUI.UIScale
-local S=L.AbsoluteSize.X/ar.WindUI.UIScale
+local R=J.AbsoluteContentSize.X/ar.Lib.UIScale
+local S=L.AbsoluteSize.X/ar.Lib.UIScale
 
 if R>S then
 J.FillDirection=Enum.FillDirection.Vertical
@@ -11402,7 +11387,7 @@ local U
 local V=math.huge
 
 for W,X in ipairs(M)do
-local Y=X.AbsoluteSize.X/ar.WindUI.UIScale
+local Y=X.AbsoluteSize.X/ar.Lib.UIScale
 if Y<V then
 V=Y
 U=X
@@ -11856,7 +11841,7 @@ end
 
 
 function aa.Popup(ax,ay)
-ay.WindUI=aa
+ay.Lib=aa
 return a.load'r'.new(ay)
 end
 
@@ -11882,7 +11867,7 @@ else
 makefolder(ay.Title)
 end
 
-ay.WindUI=aa
+ay.Lib=aa
 ay.Parent=aa.ScreenGui.Window
 
 if aa.Window then
