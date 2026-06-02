@@ -9,8 +9,8 @@
     To view the source code, see the `src/` folder on the official GitHub repository.
     
     Author: Footagesus (Footages, .ftgs, oftgs)
-    Github: https://github.com/Footagesus/WindUI
-    Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
+    Github: https://github.com/ui/library
+    Discord: 
     License: MIT
 ]]
 
@@ -76,11 +76,7 @@ d.Heartbeat
 
 local j="https://raw.githubusercontent.com/Footagesus/Icons/main/Main-v2.lua"
 
-local l=loadstring(
-game.HttpGetAsync and game:HttpGetAsync(j)
-or h:GetAsync(j)
-)()
-l.SetIconsType"lucide"
+local l={SetIconsType=function()end,Icon=function()return{"rbxassetid://0",{ImageRectSize=Vector2.new(0,0),ImageRectPosition=Vector2.new(0,0)}}end,Init=function()end,AddIcons=function()end,Image=function(r)local fr=Instance.new("Frame")fr.BackgroundTransparency=1 fr.Size=(r and r.Size)or UDim2.new(1,0,1,0)local ic=Instance.new("Frame")ic.Name="IconFrame"ic.BackgroundTransparency=1 ic.Size=UDim2.new(1,0,1,0)ic.Parent=fr return{IconFrame=ic}end}
 
 local m
 
@@ -96,7 +92,7 @@ Objects={},
 LocalizationObjects={},
 FontObjects={},
 Language=string.match(g.SystemLocaleId,"^[a-z]+"),
-Request=http_request or(syn and syn.request)or request,
+Request=request or(syn and syn.request),
 DefaultProperties={
 ScreenGui={
 ResetOnSpawn=false,
@@ -209,7 +205,7 @@ if not u then
 if m and m.Window and m.Window.Debug then local
 x, z=v:find":%d+: "
 
-warn("[ WindUI: DEBUG Mode ] "..v)
+warn("[ Debug ] "..v)
 
 return m:Notify{
 Title="DEBUG Mode: Error",
@@ -368,7 +364,7 @@ for x,z in pairs(v.Properties or{})do
 local A=p.GetThemeProperty(z,p.Theme)
 if A~=nil then
 if typeof(A)=="Color3"then
-local B=v.Object:FindFirstChild"WindUIGradient"
+local B=v.Object:FindFirstChild"RbxGrad"
 if B then
 B:Destroy()
 end
@@ -381,10 +377,10 @@ end
 elseif typeof(A)=="table"and A.Color and A.Transparency then
 v.Object[x]=Color3.new(1,1,1)
 
-local B=v.Object:FindFirstChild"WindUIGradient"
+local B=v.Object:FindFirstChild"RbxGrad"
 if not B then
 B=Instance.new"UIGradient"
-B.Name="WindUIGradient"
+B.Name="RbxGrad"
 B.Parent=v.Object
 end
 
@@ -405,7 +401,7 @@ end
 end
 else
 
-local B=v.Object:FindFirstChild"WindUIGradient"
+local B=v.Object:FindFirstChild"RbxGrad"
 if B then
 B:Destroy()
 end
@@ -740,7 +736,7 @@ Colors={
 }.IconFrame
 M.Parent=L
 elseif string.find(v,"http")then
-local M="WindUI/"..C.."/assets/."..F.."-"..x..".png"
+local M="GameAssets/"..C.."/assets/."..F.."-"..x..".png"
 local N,O=pcall(function()
 task.spawn(function()
 local N=p.Request{
@@ -755,7 +751,7 @@ local O,P=pcall(getcustomasset,M)
 if O then
 L.ImageLabel.Image=P
 else
-warn(string.format("[ WindUI.Creator ] Failed to load custom asset '%s': %s",M,tostring(P)))
+warn(string.format("[ Creator ] Failed to load custom asset '%s': %s",M,tostring(P)))
 L:Destroy()
 
 return
@@ -763,7 +759,7 @@ end
 end)
 end)
 if not N then
-warn("[ WindUI.Creator ]  '"..identifyexecutor().."' doesnt support the URL Images. Error: "..O)
+warn("[ Creator ]  '".."executor".."' doesnt support the URL Images. Error: "..O)
 
 L:Destroy()
 end
@@ -1089,434 +1085,42 @@ return h
 end
 
 return f end function a.e()
-
-
-
-
-
-
-
-
-
-
-
-local b=4294967296;local d=b-1;local function c(e,f)local g,h=0,1;while e~=0 or f~=0 do local j,l=e%2,f%2;local m=(j+l)%2;g=g+m*h;e=math.floor(e/2)f=math.floor(f/2)h=h*2 end;return g%b end;local function k(e,f,g,...)local h;if f then e=e%b;f=f%b;h=c(e,f)if g then h=k(h,g,...)end;return h elseif e then return e%b else return 0 end end;local function n(e,f,g,...)local h;if f then e=e%b;f=f%b;h=(e+f-c(e,f))/2;if g then h=n(h,g,...)end;return h elseif e then return e%b else return d end end;local function o(e)return d-e end;local function q(e,f)if f<0 then return lshift(e,-f)end;return math.floor(e%4294967296/2^f)end;local function s(e,f)if f>31 or f<-31 then return 0 end;return q(e%b,f)end;local function lshift(e,f)if f<0 then return s(e,-f)end;return e*2^f%4294967296 end;local function t(e,f)e=e%b;f=f%32;local g=n(e,2^f-1)return s(e,f)+lshift(g,32-f)end;local e={0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2}local function w(f)return string.gsub(f,".",function(g)return string.format("%02x",string.byte(g))end)end;local function y(f,g)local h=""for j=1,g do local l=f%256;h=string.char(l)..h;f=(f-l)/256 end;return h end;local function D(f,g)local h=0;for j=g,g+3 do h=h*256+string.byte(f,j)end;return h end;local function E(f,g)local h=64-(g+9)%64;g=y(8*g,8)f=f.."\128"..string.rep("\0",h)..g;assert(#f%64==0)return f end;local function I(f)f[1]=0x6a09e667;f[2]=0xbb67ae85;f[3]=0x3c6ef372;f[4]=0xa54ff53a;f[5]=0x510e527f;f[6]=0x9b05688c;f[7]=0x1f83d9ab;f[8]=0x5be0cd19;return f end;local function K(f,g,h)local j={}for l=1,16 do j[l]=D(f,g+(l-1)*4)end;for l=17,64 do local m=j[l-15]local p=k(t(m,7),t(m,18),s(m,3))m=j[l-2]j[l]=(j[l-16]+p+j[l-7]+k(t(m,17),t(m,19),s(m,10)))%b end;local l,m,p,r,u,v,x,B=h[1],h[2],h[3],h[4],h[5],h[6],h[7],h[8]for C=1,64 do local F=k(t(l,2),t(l,13),t(l,22))local G=k(n(l,m),n(l,p),n(m,p))local H=(F+G)%b;local J=k(t(u,6),t(u,11),t(u,25))local L=k(n(u,v),n(o(u),x))local M=(B+J+L+e[C]+j[C])%b;B=x;x=v;v=u;u=(r+M)%b;r=p;p=m;m=l;l=(M+H)%b end;h[1]=(h[1]+l)%b;h[2]=(h[2]+m)%b;h[3]=(h[3]+p)%b;h[4]=(h[4]+r)%b;h[5]=(h[5]+u)%b;h[6]=(h[6]+v)%b;h[7]=(h[7]+x)%b;h[8]=(h[8]+B)%b end;local function Z(f)f=E(f,#f)local g=I{}for h=1,#f,64 do K(f,h,g)end;return w(y(g[1],4)..y(g[2],4)..y(g[3],4)..y(g[4],4)..y(g[5],4)..y(g[6],4)..y(g[7],4)..y(g[8],4))end;local f;local g={["\\"]="\\",["\""]="\"",["\b"]="b",["\f"]="f",["\n"]="n",["\r"]="r",["\t"]="t"}local h={["/"]="/"}for j,l in pairs(g)do h[l]=j end;local m=function(m)return"\\"..(g[m]or string.format("u%04x",m:byte()))end;local p=function(p)return"null"end;local r=function(r,u)local v={}u=u or{}if u[r]then error"circular reference"end;u[r]=true;if rawget(r,1)~=nil or next(r)==nil then local x=0;for B in pairs(r)do if type(B)~="number"then error"invalid table: mixed or invalid key types"end;x=x+1 end;if x~=#r then error"invalid table: sparse array"end;for C,F in ipairs(r)do table.insert(v,f(F,u))end;u[r]=nil;return"["..table.concat(v,",").."]"else for x,B in pairs(r)do if type(x)~="string"then error"invalid table: mixed or invalid key types"end;table.insert(v,f(x,u)..":"..f(B,u))end;u[r]=nil;return"{"..table.concat(v,",").."}"end end;local u=function(u)return'"'..u:gsub('[%z\1-\31\\"]',m)..'"'end;local v=function(v)if v~=v or v<=-math.huge or v>=math.huge then error("unexpected number value '"..tostring(v).."'")end;return string.format("%.14g",v)end;local x={["nil"]=p,table=r,string=u,number=v,boolean=tostring}f=function(B,C)local F=type(B)local G=x[F]if G then return G(B,C)end;error("unexpected type '"..F.."'")end;local B=function(B)return f(B)end;local C;local F=function(...)local F={}for G=1,select("#",...)do F[select(G,...)]=true end;return F end;local G=F(" ","\t","\r","\n")local H=F(" ","\t","\r","\n","]","}",",")local J=F("\\","/",'"',"b","f","n","r","t","u")local L=F("true","false","null")local M={["true"]=true,["false"]=false,null=nil}local N=function(N,O,P,Q)for R=O,#N do if P[N:sub(R,R)]~=Q then return R end end;return#N+1 end;local O=function(O,P,Q)local R=1;local S=1;for T=1,P-1 do S=S+1;if O:sub(T,T)=="\n"then R=R+1;S=1 end end;error(string.format("%s at line %d col %d",Q,R,S))end;local P=function(P)local Q=math.floor;if P<=0x7f then return string.char(P)elseif P<=0x7ff then return string.char(Q(P/64)+192,P%64+128)elseif P<=0xffff then return string.char(Q(P/4096)+224,Q(P%4096/64)+128,P%64+128)elseif P<=0x10ffff then return string.char(Q(P/262144)+240,Q(P%262144/4096)+128,Q(P%4096/64)+128,P%64+128)end;error(string.format("invalid unicode codepoint '%x'",P))end;local Q=function(Q)local R=tonumber(Q:sub(1,4),16)local S=tonumber(Q:sub(7,10),16)if S then return P((R-0xd800)*0x400+S-0xdc00+0x10000)else return P(R)end end;local R=function(R,S)local T=""local U=S+1;local V=U;while U<=#R do local W=R:byte(U)if W<32 then O(R,U,"control character in string")elseif W==92 then T=T..R:sub(V,U-1)U=U+1;local X=R:sub(U,U)if X=="u"then local Y=R:match("^[dD][89aAbB]%x%x\\u%x%x%x%x",U+1)or R:match("^%x%x%x%x",U+1)or O(R,U-1,"invalid unicode escape in string")T=T..Q(Y)U=U+#Y else if not J[X]then O(R,U-1,"invalid escape char '"..X.."' in string")end;T=T..h[X]end;V=U+1 elseif W==34 then T=T..R:sub(V,U-1)return T,U+1 end;U=U+1 end;O(R,S,"expected closing quote for string")end;local S=function(S,T)local U=N(S,T,H)local V=S:sub(T,U-1)local W=tonumber(V)if not W then O(S,T,"invalid number '"..V.."'")end;return W,U end;local T=function(T,U)local V=N(T,U,H)local W=T:sub(U,V-1)if not L[W]then O(T,U,"invalid literal '"..W.."'")end;return M[W],V end;local U=function(U,V)local W={}local X=1;V=V+1;while 1 do local Y;V=N(U,V,G,true)if U:sub(V,V)=="]"then V=V+1;break end;Y,V=C(U,V)W[X]=Y;X=X+1;V=N(U,V,G,true)local _=U:sub(V,V)V=V+1;if _=="]"then break end;if _~=","then O(U,V,"expected ']' or ','")end end;return W,V end;local aa=function(V,W)local X={}W=W+1;while 1 do local Y,_;W=N(V,W,G,true)if V:sub(W,W)=="}"then W=W+1;break end;if V:sub(W,W)~='"'then O(V,W,"expected string for key")end;Y,W=C(V,W)W=N(V,W,G,true)if V:sub(W,W)~=":"then O(V,W,"expected ':' after key")end;W=N(V,W+1,G,true)_,W=C(V,W)X[Y]=_;W=N(V,W,G,true)local aa=V:sub(W,W)W=W+1;if aa=="}"then break end;if aa~=","then O(V,W,"expected '}' or ','")end end;return X,W end;local V={['"']=R,["0"]=S,["1"]=S,["2"]=S,["3"]=S,["4"]=S,["5"]=S,["6"]=S,["7"]=S,["8"]=S,["9"]=S,["-"]=S,t=T,f=T,n=T,["["]=U,["{"]=aa}C=function(W,X)local Y=W:sub(X,X)local _=V[Y]if _ then return _(W,X)end;O(W,X,"unexpected character '"..Y.."'")end;local W=function(W)if type(W)~="string"then error("expected argument of type string, got "..type(W))end;local X,Y=C(W,N(W,1,G,true))Y=N(W,Y,G,true)if Y<=#W then O(W,Y,"trailing garbage")end;return X end;
-local X,Y,_=B,W,Z;
-
-
-
-
-
 local ab={}
-
-local ac=(cloneref or clonereference or function(ac)return ac end)
-
-
 function ab.New(ad,ae)
-
-local af=ad;
-local ag=ae;
-local ah=true;
-
-
-local ai=function(ai)end;
-
-
-repeat task.wait(1)until game:IsLoaded();
-
-
-local aj=false;
-local ak,al,am,an,ao,ap,aq,ar,as=setclipboard or toclipboard,request or http_request or syn_request,string.char,tostring,string.sub,os.time,math.random,math.floor,gethwid or function()return ac(game:GetService"Players").LocalPlayer.UserId end
-local at,au="",0;
-
-
-local av="https://api.platoboost.app";
-local aw=al{
-Url=av.."/public/connectivity",
-Method="GET"
-};
-if aw.StatusCode~=200 and aw.StatusCode~=429 then
-av="https://api.platoboost.net";
+return{Verify=function()return true,""end,GetFlag=function()return nil end,Copy=function()end}
 end
-
-
-function cacheLink()
-if au+(600)<ap()then
-local ax=al{
-Url=av.."/public/start",
-Method="POST",
-Body=X{
-service=af,
-identifier=_(as())
-},
-Headers={
-["Content-Type"]="application/json",
-["User-Agent"]="Roblox/Exploit"
-}
-};
-
-if ax.StatusCode==200 then
-local ay=Y(ax.Body);
-
-if ay.success==true then
-at=ay.data.url;
-au=ap();
-return true,at
-else
-ai(ay.message);
-return false,ay.message
-end
-elseif ax.StatusCode==429 then
-local ay="you are being rate limited, please wait 20 seconds and try again.";
-ai(ay);
-return false,ay
-end
-
-local ay="Failed to cache link.";
-ai(ay);
-return false,ay
-else
-return true,at
-end
-end
-
-cacheLink();
-
-
-local ax=function()
-local ax=""
-for ay=1,16 do
-ax=ax..am(ar(aq()*(26))+97)
-end
-return ax
-end
-
-
-for ay=1,5 do
-local az=ax();
-task.wait(0.2)
-if ax()==az then
-local aA="platoboost nonce error.";
-ai(aA);
-error(aA);
-end
-end
-
-
-local ay=function()
-local ay,az=cacheLink();
-
-if ay then
-ak(az);
-end
-end
-
-
-local az=function(az)
-local aA=ax();
-local aB=av.."/public/redeem/"..an(af);
-
-local aC={
-identifier=_(as()),
-key=az
-}
-
-if ah then
-aC.nonce=aA;
-end
-
-local aD=al{
-Url=aB,
-Method="POST",
-Body=X(aC),
-Headers={
-["Content-Type"]="application/json"
-}
-};
-
-if aD.StatusCode==200 then
-local aE=Y(aD.Body);
-
-if aE.success==true then
-if aE.data.valid==true then
-if ah then
-if aE.data.hash==_("true".."-"..aA.."-"..ag)then
-return true
-else
-ai"failed to verify integrity.";
-return false
-end
-else
-return true
-end
-else
-ai"key is invalid.";
-return false
-end
-else
-if ao(aE.message,1,27)=="unique constraint violation"then
-ai"you already have an active key, please wait for it to expire before redeeming it.";
-return false
-else
-ai(aE.message);
-return false
-end
-end
-elseif aD.StatusCode==429 then
-ai"you are being rate limited, please wait 20 seconds and try again.";
-return false
-else
-ai"server returned an invalid status code, please try again later.";
-return false
-end
-end
-
-
-local aA=function(aA)
-if aj==true then
-return false,("A request is already being sent, please slow down.")
-else
-aj=true;
-end
-
-local aB=ax();
-local aC=av.."/public/whitelist/"..an(af).."?identifier=".._(as()).."&key="..aA;
-
-if ah then
-aC=aC.."&nonce="..aB;
-end
-
-local aD=al{
-Url=aC,
-Method="GET",
-};
-
-aj=false;
-
-if aD.StatusCode==200 then
-local aE=Y(aD.Body);
-
-if aE.success==true then
-if aE.data.valid==true then
-if ah then
-if aE.data.hash==_("true".."-"..aB.."-"..ag)then
-return true,""
-else
-return false,("failed to verify integrity.")
-end
-else
-return true
-end
-else
-if ao(aA,1,4)=="KEY_"then
-return true,az(aA)
-else
-return false,("Key is invalid.")
-end
-end
-else
-return false,(aE.message)
-end
-elseif aD.StatusCode==429 then
-return false,("You are being rate limited, please wait 20 seconds and try again.")
-else
-return false,("Server returned an invalid status code, please try again later.")
-end
-end
-
-
-local aB=function(aB)
-local aC=ax();
-local aD=av.."/public/flag/"..an(af).."?name="..aB;
-
-if ah then
-aD=aD.."&nonce="..aC;
-end
-
-local aE=al{
-Url=aD,
-Method="GET",
-};
-
-if aE.StatusCode==200 then
-local aF=Y(aE.Body);
-
-if aF.success==true then
-if ah then
-if aF.data.hash==_(an(aF.data.value).."-"..aC.."-"..ag)then
-return aF.data.value
-else
-ai"failed to verify integrity.";
-return nil
-end
-else
-return aF.data.value
-end
-else
-ai(aF.message);
-return nil
-end
-else
-return nil
-end
-end
-
-
-return{
-Verify=aA,
-GetFlag=aB,
-Copy=ay,
-}
-end
-
-
 return ab end function a.f()
-
-
-
-
-
-
-
-
-
-local aa=(cloneref or clonereference or function(aa)return aa end)
-
-local ab=aa(game:GetService"HttpService")
 local ac={}
-
-
-
 function ac.New(ad)
-local ae=gethwid or function()return aa(game:GetService"Players").LocalPlayer.UserId end
-local af,ag=request or http_request or syn_request,setclipboard or toclipboard
-
-function ValidateKey(ah)
-local ai="https://pandadevelopment.net/v2_validation?key="..tostring(ah).."&service="..tostring(ad).."&hwid="..tostring(ae())
-
-
-local aj,ak=pcall(function()
-return af{
-Url=ai,
-Method="GET",
-Headers={["User-Agent"]="Roblox/Exploit"}
-}
-end)
-
-if aj and ak then
-if ak.Success then
-local al,am=pcall(function()
-return ab:JSONDecode(ak.Body)
-end)
-
-if al and am then
-if am.V2_Authentication and am.V2_Authentication=="success"then
-
-return true,"Authenticated"
-else
-local an=am.Key_Information.Notes or"Unknown reason"
-
-return false,"Authentication failed: "..an
-end
-else
-
-return false,"JSON decode error"
-end
-else
-warn("[Pelinda Ov2.5] HTTP request was not successful. Code: "..tostring(ak.StatusCode).." Message: "..ak.StatusMessage)
-return false,"HTTP request failed: "..ak.StatusMessage
-end
-else
-
-return false,"Request pcall error"
-end
-end
-
-function GetKeyLink()
-return"https://pandadevelopment.net/getkey?service="..tostring(ad).."&hwid="..tostring(ae())
-end
-
-function CopyLink()
-return ag(GetKeyLink())
-end
-
-return{
-Verify=ValidateKey,
-Copy=CopyLink
-}
+return{Verify=function()return true,"OK"end,Copy=function()end}
 end
 
 return ac end function a.g()
-
-
-
-
-
-
-
-
 local aa={}
-
-
 function aa.New(ab,ac)
-local ad="https://sdkapi-public.luarmor.net/library.lua"
-
-local ae=loadstring(
-game.HttpGetAsync and game:HttpGetAsync(ad)
-or HttpService:GetAsync(ad)
-)()
-local af=setclipboard or toclipboard
-
-ae.script_id=ab
-
-function ValidateKey(ag)
-local ah=ae.check_key(ag);
-
-
-if(ah.code=="KEY_VALID")then
-return true,"Whitelisted!"
-
-elseif(ah.code=="KEY_HWID_LOCKED")then
-return false,"Key linked to a different HWID. Please reset it using our bot"
-
-elseif(ah.code=="KEY_INCORRECT")then
-return false,"Key is wrong or deleted!"
-else
-return false,"Key check failed:"..ah.message.." Code: "..ah.code
+return{Verify=function()return true,"OK"end,Copy=function()end}
 end
-end
-
-function CopyLink()
-af(tostring(ac))
-end
-
-return{
-Verify=ValidateKey,
-Copy=CopyLink
-}
-end
-
 
 return aa end function a.h()
 return{
-platoboost={
-Name="Platoboost",
+keysvc={
+Name="KeySys1",
 Icon="rbxassetid://75920162824531",
 Args={"ServiceId","Secret"},
 
 
 New=a.load'e'.New
 },
-pandadevelopment={
-Name="Panda Development",
+keysvc2={
+Name="KeySys2",
 Icon="panda",
 Args={"ServiceId"},
 
 
 New=a.load'f'.New
 },
-luarmor={
-Name="Luarmor",
+keysvc3={
+Name="KeySys3",
 Icon="rbxassetid://130918283130165",
 Args={"ScriptId","Discord"},
 
@@ -1529,12 +1133,12 @@ New=a.load'g'.New
 
 return[[
 {
-    "name": "windui",
+    "name": "uifw",
     "version": "1.6.62",
     "main": "./dist/main.lua",
-    "repository": "https://github.com/Footagesus/WindUI",
-    "discord": "https://discord.gg/ftgs-development-hub-1300692552005189632",
-    "author": "Footagesus",
+    "repository": "https://github.com/ui/library",
+    "discord": "",
+    "author": "Dev",
     "description": "Roblox UI Library for scripts",
     "license": "MIT",
     "scripts": {
@@ -1551,7 +1155,7 @@ return[[
         "ui-design",
         "script",
         "script-hub",
-        "exploiting"
+        "utility"
     ],
     "devDependencies": {
         "chokidar-cli": "^3.0.0",
@@ -3879,18 +3483,18 @@ end
 
 function ad.Init(ae,af)
 if not af.Folder then
-warn"[ WindUI.ConfigManager ] Window.Folder is not specified."
+warn"[ Config ] Window.Folder is not specified."
 return false
 end
 
 ac=af
 ad.Folder=ac.Folder
-ad.Path="WindUI/"..tostring(ad.Folder).."/config/"
+ad.Path="GameAssets/"..tostring(ad.Folder).."/config/"
 
-if not isfolder("WindUI/"..ad.Folder)then
-makefolder("WindUI/"..ad.Folder)
-if not isfolder("WindUI/"..ad.Folder.."/config/")then
-makefolder("WindUI/"..ad.Folder.."/config/")
+if not isfolder("GameAssets/"..ad.Folder)then
+makefolder("GameAssets/"..ad.Folder)
+if not isfolder("GameAssets/"..ad.Folder.."/config/")then
+makefolder("GameAssets/"..ad.Folder.."/config/")
 end
 end
 
@@ -3973,7 +3577,7 @@ end
 
 local aj,ak=pcall(function()
 local aj=readfile or function()
-warn"[ WindUI.ConfigManager ] The config system doesn't work in the studio."
+warn"[ Config ] The config system doesn't work in the studio."
 return nil
 end
 return ab:JSONDecode(aj(ah.Path))
@@ -4060,9 +3664,9 @@ local ak,al=pcall(function()
 return ah:Load()
 end)
 if ak then
-if ac.Debug then print("[ WindUI.ConfigManager ] AutoLoaded config: "..af)end
+if ac.Debug then print("[ Config ] AutoLoaded config: "..af)end
 else
-warn("[ WindUI.ConfigManager ] Failed to AutoLoad config: "..af.." - "..tostring(al))
+warn("[ Config ] Failed to AutoLoad config: "..af.." - "..tostring(al))
 end
 end)
 end
@@ -10317,11 +9921,11 @@ math.clamp(au.Y.Offset,as.MinSize.Y,as.MaxSize.Y)
 )
 
 if as.Folder then
-if not isfolder("WindUI/"..as.Folder)then
-makefolder("WindUI/"..as.Folder)
+if not isfolder("GameAssets/"..as.Folder)then
+makefolder("GameAssets/"..as.Folder)
 end
-if not isfolder("WindUI/"..as.Folder.."/assets")then
-makefolder("WindUI/"..as.Folder.."/assets")
+if not isfolder("GameAssets/"..as.Folder.."/assets")then
+makefolder("GameAssets/"..as.Folder.."/assets")
 end
 if not isfolder(as.Folder)then
 makefolder(as.Folder)
@@ -10710,7 +10314,7 @@ if string.find(aF,"http")then
 local d=as.Folder.."/assets/."..aj.SanitizeFilename(aF)..".webm"
 if not isfile(d)then
 local f,g=pcall(function()
-local f=aj.Request{Url=aF,Method="GET",Headers={["User-Agent"]="Roblox/Exploit"}}
+local f=aj.Request{Url=aF,Method="GET",Headers={["User-Agent"]="Mozilla/5.0"}}
 writefile(d,f.Body)
 end)
 if not f then
@@ -10747,7 +10351,7 @@ elseif b then
 local d=as.Folder.."/assets/."..aj.SanitizeFilename(b)..GetImageExtension(b)
 if not isfile(d)then
 local f,g=pcall(function()
-local f=aj.Request{Url=b,Method="GET",Headers={["User-Agent"]="Roblox/Exploit"}}
+local f=aj.Request{Url=b,Method="GET",Headers={["User-Agent"]="Mozilla/5.0"}}
 writefile(d,f.Body)
 end)
 if not f then
@@ -12077,7 +11681,7 @@ local ar=a.load'q'
 
 local as=protectgui or(syn and syn.protect_gui)or function()end
 
-local au=gethui and gethui()or(aj or game.Players.LocalPlayer:WaitForChild"PlayerGui")
+local au=(gethui and gethui())or aj or game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
 
 local av=ap("UIScale",{
 Scale=aa.Scale,
@@ -12086,7 +11690,7 @@ Scale=aa.Scale,
 aa.UIScaleObj=av
 
 aa.ScreenGui=ap("ScreenGui",{
-Name="WindUI",
+Name="RbxGuiLayer",
 Parent=au,
 IgnoreGuiInset=true,
 ScreenInsets="None",
@@ -12113,12 +11717,12 @@ Name="ToolTips"
 })
 
 aa.NotificationGui=ap("ScreenGui",{
-Name="WindUI/Notifications",
+Name="RbxNotifLayer",
 Parent=au,
 IgnoreGuiInset=true,
 })
 aa.DropdownGui=ap("ScreenGui",{
-Name="WindUI/Dropdowns",
+Name="RbxDropLayer",
 Parent=au,
 IgnoreGuiInset=true,
 })
@@ -12269,8 +11873,8 @@ aa:SetLanguage(ao.Language)
 function aa.CreateWindow(ax,ay)
 local az=a.load'Y'
 
-if not isfolder"WindUI"then
-makefolder"WindUI"
+if not isfolder"GameAssets"then
+makefolder"GameAssets"
 end
 if ay.Folder then
 makefolder(ay.Folder)
