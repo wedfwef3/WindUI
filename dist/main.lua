@@ -1571,18 +1571,15 @@ ah=ah or"Primary"
 local am=al or(not ak and 10 or 99)
 local an
 if af and af~=""then
-an=ac("ImageLabel",{
-Image=ab.Icon(af)[1],
-ImageRectSize=ab.Icon(af)[2].ImageRectSize,
-ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
-Size=UDim2.new(0,21,0,21),
-BackgroundTransparency=1,
-ImageColor3=ah=="White"and Color3.new(0,0,0)or nil,
-ImageTransparency=ah=="White"and.4 or 0,
-ThemeTag={
-ImageColor3=ah~="White"and"Icon"or nil,
-}
-})
+if string.find(af,"http")then
+an=ac("ImageLabel",{Size=UDim2.new(0,21,0,21),BackgroundTransparency=1,ImageColor3=ah=="White"and Color3.new(0,0,0)or nil,ImageTransparency=ah=="White"and.4 or 0,ThemeTag={ImageColor3=ah~="White"and"Icon"or nil,}})
+task.spawn(function()local ok,body=pcall(function()return(http_request or(syn and syn.request)or request)({Url=af,Method="GET"}).Body end)if ok and body then local fn="WindUI/ci/"..tostring(tick())..".png" pcall(writefile,fn,body)local ok2,asset=pcall(getcustomasset,fn)if ok2 and an then an.Image=asset end end end)
+else
+local ic=ab.Icon(af)
+if ic then
+an=ac("ImageLabel",{Image=ic[1],ImageRectSize=ic[2].ImageRectSize,ImageRectOffset=ic[2].ImageRectPosition,Size=UDim2.new(0,21,0,21),BackgroundTransparency=1,ImageColor3=ah=="White"and Color3.new(0,0,0)or nil,ImageTransparency=ah=="White"and.4 or 0,ThemeTag={ImageColor3=ah~="White"and"Icon"or nil,}})
+end
+end
 end
 
 local ao=ac("TextButton",{
@@ -1715,16 +1712,15 @@ ah=ah or"Input"
 local am=ak or 10
 local an
 if af and af~=""then
-an=ac("ImageLabel",{
-Image=ab.Icon(af)[1],
-ImageRectSize=ab.Icon(af)[2].ImageRectSize,
-ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
-Size=UDim2.new(0,21,0,21),
-BackgroundTransparency=1,
-ThemeTag={
-ImageColor3="Icon",
-}
-})
+if string.find(af,"http")then
+an=ac("ImageLabel",{Size=UDim2.new(0,21,0,21),BackgroundTransparency=1,ThemeTag={ImageColor3="Icon",}})
+task.spawn(function()local ok,body=pcall(function()return(http_request or(syn and syn.request)or request)({Url=af,Method="GET"}).Body end)if ok and body then local fn="WindUI/ci/"..tostring(tick())..".png" pcall(writefile,fn,body)local ok2,asset=pcall(getcustomasset,fn)if ok2 and an then an.Image=asset end end end)
+else
+local ic=ab.Icon(af)
+if ic then
+an=ac("ImageLabel",{Image=ic[1],ImageRectSize=ic[2].ImageRectSize,ImageRectOffset=ic[2].ImageRectPosition,Size=UDim2.new(0,21,0,21),BackgroundTransparency=1,ThemeTag={ImageColor3="Icon",}})
+end
+end
 end
 
 local ao=ah~="Input"
@@ -3342,16 +3338,15 @@ function aa.New(ae,af,ag,ah,ai)
 local aj=ai or 10
 local ak
 if af and af~=""then
-ak=ac("ImageLabel",{
-Image=ab.Icon(af)[1],
-ImageRectSize=ab.Icon(af)[2].ImageRectSize,
-ImageRectOffset=ab.Icon(af)[2].ImageRectPosition,
-Size=UDim2.new(0,21,0,21),
-BackgroundTransparency=1,
-ThemeTag={
-ImageColor3="Icon",
-}
-})
+if string.find(af,"http")then
+ak=ac("ImageLabel",{Size=UDim2.new(0,21,0,21),BackgroundTransparency=1,ThemeTag={ImageColor3="Icon",}})
+task.spawn(function()local ok,body=pcall(function()return(http_request or(syn and syn.request)or request)({Url=af,Method="GET"}).Body end)if ok and body then local fn="WindUI/ci/"..tostring(tick())..".png" pcall(writefile,fn,body)local ok2,asset=pcall(getcustomasset,fn)if ok2 and ak then ak.Image=asset end end end)
+else
+local ic=ab.Icon(af)
+if ic then
+ak=ac("ImageLabel",{Image=ic[1],ImageRectSize=ic[2].ImageRectSize,ImageRectOffset=ic[2].ImageRectPosition,Size=UDim2.new(0,21,0,21),BackgroundTransparency=1,ThemeTag={ImageColor3="Icon",}})
+end
+end
 end
 
 local al=ac("TextLabel",{
@@ -5429,17 +5424,15 @@ local am={}
 local an=12
 local ao
 if ag and ag~=""then
-ao=ac("ImageLabel",{
-Size=UDim2.new(1,-7,1,-7),
-BackgroundTransparency=1,
-AnchorPoint=Vector2.new(0.5,0.5),
-Position=UDim2.new(0.5,0,0.5,0),
-Image=ab.Icon(ag)[1],
-ImageRectOffset=ab.Icon(ag)[2].ImageRectPosition,
-ImageRectSize=ab.Icon(ag)[2].ImageRectSize,
-ImageTransparency=1,
-ImageColor3=Color3.new(0,0,0),
-})
+if string.find(ag,"http")then
+ao=ac("ImageLabel",{Size=UDim2.new(1,-7,1,-7),BackgroundTransparency=1,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),ImageTransparency=1,ImageColor3=Color3.new(0,0,0),})
+task.spawn(function()local ok,body=pcall(function()return(http_request or(syn and syn.request)or request)({Url=ag,Method="GET"}).Body end)if ok and body then local fn="WindUI/ci/"..tostring(tick())..".png" pcall(writefile,fn,body)local ok2,asset=pcall(getcustomasset,fn)if ok2 and ao then ao.Image=asset ao.ImageTransparency=0 end end end)
+else
+local ic=ab.Icon(ag)
+if ic then
+ao=ac("ImageLabel",{Size=UDim2.new(1,-7,1,-7),BackgroundTransparency=1,AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.new(0.5,0,0.5,0),Image=ic[1],ImageRectOffset=ic[2].ImageRectPosition,ImageRectSize=ic[2].ImageRectSize,ImageTransparency=1,ImageColor3=Color3.new(0,0,0),})
+end
+end
 end
 
 local ap=ac("Frame",{
@@ -9930,17 +9923,7 @@ PaddingLeft=UDim.new(0,an.Padding),
 PaddingRight=UDim.new(0,an.Padding),
 PaddingBottom=UDim.new(0,an.Padding-2),
 }),
-ah("ImageLabel",{
-Image=af.Icon(aw)[1],
-ImageRectSize=af.Icon(aw)[2].ImageRectSize,
-ImageRectOffset=af.Icon(aw)[2].ImageRectPosition,
-BackgroundTransparency=1,
-ThemeTag={
-ImageColor3="Icon",
-},
-ImageTransparency=.1,
-Size=UDim2.new(0,an.IconSize,0,an.IconSize)
-}),
+ah("ImageLabel",(function()local ic=af.Icon(aw)if ic then return{Image=ic[1],ImageRectSize=ic[2].ImageRectSize,ImageRectOffset=ic[2].ImageRectPosition,BackgroundTransparency=1,ThemeTag={ImageColor3="Icon",},ImageTransparency=.1,Size=UDim2.new(0,an.IconSize,0,an.IconSize)}else return{BackgroundTransparency=1,ThemeTag={ImageColor3="Icon",},ImageTransparency=.1,Size=UDim2.new(0,an.IconSize,0,an.IconSize)}end end)()),
 ah("Frame",{
 Size=UDim2.new(1,-an.IconSize-an.Padding,0,0),
 BackgroundTransparency=1,
