@@ -1,4 +1,18 @@
-
+--[[
+     _      ___         ____  ______
+    | | /| / (_)__  ___/ / / / /  _/
+    | |/ |/ / / _ \/ _  / /_/ // /  
+    |__/|__/_/_//_/\_,_/\____/___/
+    
+    v1.6.62  |  2025-11-22  |  Roblox UI Library for scripts
+    
+    To view the source code, see the `src/` folder on the official GitHub repository.
+    
+    Author: Footagesus (Footages, .ftgs, oftgs)
+    Github: https://github.com/Footagesus/WindUI
+    Discord: https://discord.gg/ftgs-development-hub-1300692552005189632
+    License: MIT
+]]
 
 local a a={cache={}, load=function(b)if not a.cache[b]then a.cache[b]={c=a[b]()}end return a.cache[b].c end}do function a.a()return{
 
@@ -60,8 +74,13 @@ local h=b(game:GetService"HttpService")local i=
 
 d.Heartbeat
 
+local j="https://raw.githubusercontent.com/Footagesus/Icons/main/Main-v2.lua"
 
-local l={SetIconsType=function()end,Icon=function()return{"rbxassetid://0",{ImageRectSize=Vector2.new(0,0),ImageRectPosition=Vector2.new(0,0)}}end,Init=function()end,AddIcons=function()end,Image=function(r)local fr=Instance.new("Frame")fr.BackgroundTransparency=1 fr.Size=(r and r.Size)or UDim2.new(1,0,1,0)local ic=Instance.new("Frame")ic.Name="IconFrame"ic.BackgroundTransparency=1 ic.Size=UDim2.new(1,0,1,0)ic.Parent=fr return{IconFrame=ic}end}
+local l=loadstring(
+game.HttpGetAsync and game:HttpGetAsync(j)
+or h:GetAsync(j)
+)()
+l.SetIconsType"lucide"
 
 local m
 
@@ -77,7 +96,7 @@ Objects={},
 LocalizationObjects={},
 FontObjects={},
 Language=string.match(g.SystemLocaleId,"^[a-z]+"),
-Request=request or(syn and syn.request),
+Request=http_request or(syn and syn.request)or request,
 DefaultProperties={
 ScreenGui={
 ResetOnSpawn=false,
@@ -190,7 +209,7 @@ if not u then
 if m and m.Window and m.Window.Debug then local
 x, z=v:find":%d+: "
 
-warn("[ Debug ] "..v)
+warn("[ WindUI: DEBUG Mode ] "..v)
 
 return m:Notify{
 Title="DEBUG Mode: Error",
@@ -349,7 +368,7 @@ for x,z in pairs(v.Properties or{})do
 local A=p.GetThemeProperty(z,p.Theme)
 if A~=nil then
 if typeof(A)=="Color3"then
-local B=v.Object:FindFirstChild"RbxGrad"
+local B=v.Object:FindFirstChild"WindUIGradient"
 if B then
 B:Destroy()
 end
@@ -362,10 +381,10 @@ end
 elseif typeof(A)=="table"and A.Color and A.Transparency then
 v.Object[x]=Color3.new(1,1,1)
 
-local B=v.Object:FindFirstChild"RbxGrad"
+local B=v.Object:FindFirstChild"WindUIGradient"
 if not B then
 B=Instance.new"UIGradient"
-B.Name="RbxGrad"
+B.Name="WindUIGradient"
 B.Parent=v.Object
 end
 
@@ -386,7 +405,7 @@ end
 end
 else
 
-local B=v.Object:FindFirstChild"RbxGrad"
+local B=v.Object:FindFirstChild"WindUIGradient"
 if B then
 B:Destroy()
 end
@@ -721,7 +740,7 @@ Colors={
 }.IconFrame
 M.Parent=L
 elseif string.find(v,"http")then
-local M="GameAssets/"..C.."/assets/."..F.."-"..x..".png"
+local M="WindUI/"..C.."/assets/."..F.."-"..x..".png"
 local N,O=pcall(function()
 task.spawn(function()
 local N=p.Request{
@@ -736,7 +755,7 @@ local O,P=pcall(getcustomasset,M)
 if O then
 L.ImageLabel.Image=P
 else
-warn(string.format("[ Creator ] Failed to load custom asset '%s': %s",M,tostring(P)))
+warn(string.format("[ WindUI.Creator ] Failed to load custom asset '%s': %s",M,tostring(P)))
 L:Destroy()
 
 return
@@ -744,7 +763,7 @@ end
 end)
 end)
 if not N then
-warn("[ Creator ]  '".."executor".."' doesnt support the URL Images. Error: "..O)
+warn("[ WindUI.Creator ]  '"..identifyexecutor().."' doesnt support the URL Images. Error: "..O)
 
 L:Destroy()
 end
@@ -1070,42 +1089,434 @@ return h
 end
 
 return f end function a.e()
+
+
+
+
+
+
+
+
+
+
+
+local b=4294967296;local d=b-1;local function c(e,f)local g,h=0,1;while e~=0 or f~=0 do local j,l=e%2,f%2;local m=(j+l)%2;g=g+m*h;e=math.floor(e/2)f=math.floor(f/2)h=h*2 end;return g%b end;local function k(e,f,g,...)local h;if f then e=e%b;f=f%b;h=c(e,f)if g then h=k(h,g,...)end;return h elseif e then return e%b else return 0 end end;local function n(e,f,g,...)local h;if f then e=e%b;f=f%b;h=(e+f-c(e,f))/2;if g then h=n(h,g,...)end;return h elseif e then return e%b else return d end end;local function o(e)return d-e end;local function q(e,f)if f<0 then return lshift(e,-f)end;return math.floor(e%4294967296/2^f)end;local function s(e,f)if f>31 or f<-31 then return 0 end;return q(e%b,f)end;local function lshift(e,f)if f<0 then return s(e,-f)end;return e*2^f%4294967296 end;local function t(e,f)e=e%b;f=f%32;local g=n(e,2^f-1)return s(e,f)+lshift(g,32-f)end;local e={0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2}local function w(f)return string.gsub(f,".",function(g)return string.format("%02x",string.byte(g))end)end;local function y(f,g)local h=""for j=1,g do local l=f%256;h=string.char(l)..h;f=(f-l)/256 end;return h end;local function D(f,g)local h=0;for j=g,g+3 do h=h*256+string.byte(f,j)end;return h end;local function E(f,g)local h=64-(g+9)%64;g=y(8*g,8)f=f.."\128"..string.rep("\0",h)..g;assert(#f%64==0)return f end;local function I(f)f[1]=0x6a09e667;f[2]=0xbb67ae85;f[3]=0x3c6ef372;f[4]=0xa54ff53a;f[5]=0x510e527f;f[6]=0x9b05688c;f[7]=0x1f83d9ab;f[8]=0x5be0cd19;return f end;local function K(f,g,h)local j={}for l=1,16 do j[l]=D(f,g+(l-1)*4)end;for l=17,64 do local m=j[l-15]local p=k(t(m,7),t(m,18),s(m,3))m=j[l-2]j[l]=(j[l-16]+p+j[l-7]+k(t(m,17),t(m,19),s(m,10)))%b end;local l,m,p,r,u,v,x,B=h[1],h[2],h[3],h[4],h[5],h[6],h[7],h[8]for C=1,64 do local F=k(t(l,2),t(l,13),t(l,22))local G=k(n(l,m),n(l,p),n(m,p))local H=(F+G)%b;local J=k(t(u,6),t(u,11),t(u,25))local L=k(n(u,v),n(o(u),x))local M=(B+J+L+e[C]+j[C])%b;B=x;x=v;v=u;u=(r+M)%b;r=p;p=m;m=l;l=(M+H)%b end;h[1]=(h[1]+l)%b;h[2]=(h[2]+m)%b;h[3]=(h[3]+p)%b;h[4]=(h[4]+r)%b;h[5]=(h[5]+u)%b;h[6]=(h[6]+v)%b;h[7]=(h[7]+x)%b;h[8]=(h[8]+B)%b end;local function Z(f)f=E(f,#f)local g=I{}for h=1,#f,64 do K(f,h,g)end;return w(y(g[1],4)..y(g[2],4)..y(g[3],4)..y(g[4],4)..y(g[5],4)..y(g[6],4)..y(g[7],4)..y(g[8],4))end;local f;local g={["\\"]="\\",["\""]="\"",["\b"]="b",["\f"]="f",["\n"]="n",["\r"]="r",["\t"]="t"}local h={["/"]="/"}for j,l in pairs(g)do h[l]=j end;local m=function(m)return"\\"..(g[m]or string.format("u%04x",m:byte()))end;local p=function(p)return"null"end;local r=function(r,u)local v={}u=u or{}if u[r]then error"circular reference"end;u[r]=true;if rawget(r,1)~=nil or next(r)==nil then local x=0;for B in pairs(r)do if type(B)~="number"then error"invalid table: mixed or invalid key types"end;x=x+1 end;if x~=#r then error"invalid table: sparse array"end;for C,F in ipairs(r)do table.insert(v,f(F,u))end;u[r]=nil;return"["..table.concat(v,",").."]"else for x,B in pairs(r)do if type(x)~="string"then error"invalid table: mixed or invalid key types"end;table.insert(v,f(x,u)..":"..f(B,u))end;u[r]=nil;return"{"..table.concat(v,",").."}"end end;local u=function(u)return'"'..u:gsub('[%z\1-\31\\"]',m)..'"'end;local v=function(v)if v~=v or v<=-math.huge or v>=math.huge then error("unexpected number value '"..tostring(v).."'")end;return string.format("%.14g",v)end;local x={["nil"]=p,table=r,string=u,number=v,boolean=tostring}f=function(B,C)local F=type(B)local G=x[F]if G then return G(B,C)end;error("unexpected type '"..F.."'")end;local B=function(B)return f(B)end;local C;local F=function(...)local F={}for G=1,select("#",...)do F[select(G,...)]=true end;return F end;local G=F(" ","\t","\r","\n")local H=F(" ","\t","\r","\n","]","}",",")local J=F("\\","/",'"',"b","f","n","r","t","u")local L=F("true","false","null")local M={["true"]=true,["false"]=false,null=nil}local N=function(N,O,P,Q)for R=O,#N do if P[N:sub(R,R)]~=Q then return R end end;return#N+1 end;local O=function(O,P,Q)local R=1;local S=1;for T=1,P-1 do S=S+1;if O:sub(T,T)=="\n"then R=R+1;S=1 end end;error(string.format("%s at line %d col %d",Q,R,S))end;local P=function(P)local Q=math.floor;if P<=0x7f then return string.char(P)elseif P<=0x7ff then return string.char(Q(P/64)+192,P%64+128)elseif P<=0xffff then return string.char(Q(P/4096)+224,Q(P%4096/64)+128,P%64+128)elseif P<=0x10ffff then return string.char(Q(P/262144)+240,Q(P%262144/4096)+128,Q(P%4096/64)+128,P%64+128)end;error(string.format("invalid unicode codepoint '%x'",P))end;local Q=function(Q)local R=tonumber(Q:sub(1,4),16)local S=tonumber(Q:sub(7,10),16)if S then return P((R-0xd800)*0x400+S-0xdc00+0x10000)else return P(R)end end;local R=function(R,S)local T=""local U=S+1;local V=U;while U<=#R do local W=R:byte(U)if W<32 then O(R,U,"control character in string")elseif W==92 then T=T..R:sub(V,U-1)U=U+1;local X=R:sub(U,U)if X=="u"then local Y=R:match("^[dD][89aAbB]%x%x\\u%x%x%x%x",U+1)or R:match("^%x%x%x%x",U+1)or O(R,U-1,"invalid unicode escape in string")T=T..Q(Y)U=U+#Y else if not J[X]then O(R,U-1,"invalid escape char '"..X.."' in string")end;T=T..h[X]end;V=U+1 elseif W==34 then T=T..R:sub(V,U-1)return T,U+1 end;U=U+1 end;O(R,S,"expected closing quote for string")end;local S=function(S,T)local U=N(S,T,H)local V=S:sub(T,U-1)local W=tonumber(V)if not W then O(S,T,"invalid number '"..V.."'")end;return W,U end;local T=function(T,U)local V=N(T,U,H)local W=T:sub(U,V-1)if not L[W]then O(T,U,"invalid literal '"..W.."'")end;return M[W],V end;local U=function(U,V)local W={}local X=1;V=V+1;while 1 do local Y;V=N(U,V,G,true)if U:sub(V,V)=="]"then V=V+1;break end;Y,V=C(U,V)W[X]=Y;X=X+1;V=N(U,V,G,true)local _=U:sub(V,V)V=V+1;if _=="]"then break end;if _~=","then O(U,V,"expected ']' or ','")end end;return W,V end;local aa=function(V,W)local X={}W=W+1;while 1 do local Y,_;W=N(V,W,G,true)if V:sub(W,W)=="}"then W=W+1;break end;if V:sub(W,W)~='"'then O(V,W,"expected string for key")end;Y,W=C(V,W)W=N(V,W,G,true)if V:sub(W,W)~=":"then O(V,W,"expected ':' after key")end;W=N(V,W+1,G,true)_,W=C(V,W)X[Y]=_;W=N(V,W,G,true)local aa=V:sub(W,W)W=W+1;if aa=="}"then break end;if aa~=","then O(V,W,"expected '}' or ','")end end;return X,W end;local V={['"']=R,["0"]=S,["1"]=S,["2"]=S,["3"]=S,["4"]=S,["5"]=S,["6"]=S,["7"]=S,["8"]=S,["9"]=S,["-"]=S,t=T,f=T,n=T,["["]=U,["{"]=aa}C=function(W,X)local Y=W:sub(X,X)local _=V[Y]if _ then return _(W,X)end;O(W,X,"unexpected character '"..Y.."'")end;local W=function(W)if type(W)~="string"then error("expected argument of type string, got "..type(W))end;local X,Y=C(W,N(W,1,G,true))Y=N(W,Y,G,true)if Y<=#W then O(W,Y,"trailing garbage")end;return X end;
+local X,Y,_=B,W,Z;
+
+
+
+
+
 local ab={}
+
+local ac=(cloneref or clonereference or function(ac)return ac end)
+
+
 function ab.New(ad,ae)
-return{Verify=function()return true,""end,GetFlag=function()return nil end,Copy=function()end}
+
+local af=ad;
+local ag=ae;
+local ah=true;
+
+
+local ai=function(ai)end;
+
+
+repeat task.wait(1)until game:IsLoaded();
+
+
+local aj=false;
+local ak,al,am,an,ao,ap,aq,ar,as=setclipboard or toclipboard,request or http_request or syn_request,string.char,tostring,string.sub,os.time,math.random,math.floor,gethwid or function()return ac(game:GetService"Players").LocalPlayer.UserId end
+local at,au="",0;
+
+
+local av="https://api.platoboost.app";
+local aw=al{
+Url=av.."/public/connectivity",
+Method="GET"
+};
+if aw.StatusCode~=200 and aw.StatusCode~=429 then
+av="https://api.platoboost.net";
 end
+
+
+function cacheLink()
+if au+(600)<ap()then
+local ax=al{
+Url=av.."/public/start",
+Method="POST",
+Body=X{
+service=af,
+identifier=_(as())
+},
+Headers={
+["Content-Type"]="application/json",
+["User-Agent"]="Roblox/Exploit"
+}
+};
+
+if ax.StatusCode==200 then
+local ay=Y(ax.Body);
+
+if ay.success==true then
+at=ay.data.url;
+au=ap();
+return true,at
+else
+ai(ay.message);
+return false,ay.message
+end
+elseif ax.StatusCode==429 then
+local ay="you are being rate limited, please wait 20 seconds and try again.";
+ai(ay);
+return false,ay
+end
+
+local ay="Failed to cache link.";
+ai(ay);
+return false,ay
+else
+return true,at
+end
+end
+
+cacheLink();
+
+
+local ax=function()
+local ax=""
+for ay=1,16 do
+ax=ax..am(ar(aq()*(26))+97)
+end
+return ax
+end
+
+
+for ay=1,5 do
+local az=ax();
+task.wait(0.2)
+if ax()==az then
+local aA="platoboost nonce error.";
+ai(aA);
+error(aA);
+end
+end
+
+
+local ay=function()
+local ay,az=cacheLink();
+
+if ay then
+ak(az);
+end
+end
+
+
+local az=function(az)
+local aA=ax();
+local aB=av.."/public/redeem/"..an(af);
+
+local aC={
+identifier=_(as()),
+key=az
+}
+
+if ah then
+aC.nonce=aA;
+end
+
+local aD=al{
+Url=aB,
+Method="POST",
+Body=X(aC),
+Headers={
+["Content-Type"]="application/json"
+}
+};
+
+if aD.StatusCode==200 then
+local aE=Y(aD.Body);
+
+if aE.success==true then
+if aE.data.valid==true then
+if ah then
+if aE.data.hash==_("true".."-"..aA.."-"..ag)then
+return true
+else
+ai"failed to verify integrity.";
+return false
+end
+else
+return true
+end
+else
+ai"key is invalid.";
+return false
+end
+else
+if ao(aE.message,1,27)=="unique constraint violation"then
+ai"you already have an active key, please wait for it to expire before redeeming it.";
+return false
+else
+ai(aE.message);
+return false
+end
+end
+elseif aD.StatusCode==429 then
+ai"you are being rate limited, please wait 20 seconds and try again.";
+return false
+else
+ai"server returned an invalid status code, please try again later.";
+return false
+end
+end
+
+
+local aA=function(aA)
+if aj==true then
+return false,("A request is already being sent, please slow down.")
+else
+aj=true;
+end
+
+local aB=ax();
+local aC=av.."/public/whitelist/"..an(af).."?identifier=".._(as()).."&key="..aA;
+
+if ah then
+aC=aC.."&nonce="..aB;
+end
+
+local aD=al{
+Url=aC,
+Method="GET",
+};
+
+aj=false;
+
+if aD.StatusCode==200 then
+local aE=Y(aD.Body);
+
+if aE.success==true then
+if aE.data.valid==true then
+if ah then
+if aE.data.hash==_("true".."-"..aB.."-"..ag)then
+return true,""
+else
+return false,("failed to verify integrity.")
+end
+else
+return true
+end
+else
+if ao(aA,1,4)=="KEY_"then
+return true,az(aA)
+else
+return false,("Key is invalid.")
+end
+end
+else
+return false,(aE.message)
+end
+elseif aD.StatusCode==429 then
+return false,("You are being rate limited, please wait 20 seconds and try again.")
+else
+return false,("Server returned an invalid status code, please try again later.")
+end
+end
+
+
+local aB=function(aB)
+local aC=ax();
+local aD=av.."/public/flag/"..an(af).."?name="..aB;
+
+if ah then
+aD=aD.."&nonce="..aC;
+end
+
+local aE=al{
+Url=aD,
+Method="GET",
+};
+
+if aE.StatusCode==200 then
+local aF=Y(aE.Body);
+
+if aF.success==true then
+if ah then
+if aF.data.hash==_(an(aF.data.value).."-"..aC.."-"..ag)then
+return aF.data.value
+else
+ai"failed to verify integrity.";
+return nil
+end
+else
+return aF.data.value
+end
+else
+ai(aF.message);
+return nil
+end
+else
+return nil
+end
+end
+
+
+return{
+Verify=aA,
+GetFlag=aB,
+Copy=ay,
+}
+end
+
+
 return ab end function a.f()
+
+
+
+
+
+
+
+
+
+local aa=(cloneref or clonereference or function(aa)return aa end)
+
+local ab=aa(game:GetService"HttpService")
 local ac={}
+
+
+
 function ac.New(ad)
-return{Verify=function()return true,"OK"end,Copy=function()end}
+local ae=gethwid or function()return aa(game:GetService"Players").LocalPlayer.UserId end
+local af,ag=request or http_request or syn_request,setclipboard or toclipboard
+
+function ValidateKey(ah)
+local ai="https://pandadevelopment.net/v2_validation?key="..tostring(ah).."&service="..tostring(ad).."&hwid="..tostring(ae())
+
+
+local aj,ak=pcall(function()
+return af{
+Url=ai,
+Method="GET",
+Headers={["User-Agent"]="Roblox/Exploit"}
+}
+end)
+
+if aj and ak then
+if ak.Success then
+local al,am=pcall(function()
+return ab:JSONDecode(ak.Body)
+end)
+
+if al and am then
+if am.V2_Authentication and am.V2_Authentication=="success"then
+
+return true,"Authenticated"
+else
+local an=am.Key_Information.Notes or"Unknown reason"
+
+return false,"Authentication failed: "..an
+end
+else
+
+return false,"JSON decode error"
+end
+else
+warn("[Pelinda Ov2.5] HTTP request was not successful. Code: "..tostring(ak.StatusCode).." Message: "..ak.StatusMessage)
+return false,"HTTP request failed: "..ak.StatusMessage
+end
+else
+
+return false,"Request pcall error"
+end
+end
+
+function GetKeyLink()
+return"https://pandadevelopment.net/getkey?service="..tostring(ad).."&hwid="..tostring(ae())
+end
+
+function CopyLink()
+return ag(GetKeyLink())
+end
+
+return{
+Verify=ValidateKey,
+Copy=CopyLink
+}
 end
 
 return ac end function a.g()
+
+
+
+
+
+
+
+
 local aa={}
+
+
 function aa.New(ab,ac)
-return{Verify=function()return true,"OK"end,Copy=function()end}
+local ad="https://sdkapi-public.luarmor.net/library.lua"
+
+local ae=loadstring(
+game.HttpGetAsync and game:HttpGetAsync(ad)
+or HttpService:GetAsync(ad)
+)()
+local af=setclipboard or toclipboard
+
+ae.script_id=ab
+
+function ValidateKey(ag)
+local ah=ae.check_key(ag);
+
+
+if(ah.code=="KEY_VALID")then
+return true,"Whitelisted!"
+
+elseif(ah.code=="KEY_HWID_LOCKED")then
+return false,"Key linked to a different HWID. Please reset it using our bot"
+
+elseif(ah.code=="KEY_INCORRECT")then
+return false,"Key is wrong or deleted!"
+else
+return false,"Key check failed:"..ah.message.." Code: "..ah.code
 end
+end
+
+function CopyLink()
+af(tostring(ac))
+end
+
+return{
+Verify=ValidateKey,
+Copy=CopyLink
+}
+end
+
 
 return aa end function a.h()
 return{
-keysvc={
-Name="System1",
+platoboost={
+Name="Platoboost",
 Icon="rbxassetid://75920162824531",
 Args={"ServiceId","Secret"},
 
 
 New=a.load'e'.New
 },
-keysvc2={
-Name="System2",
-Icon="rbxassetid://0",
+pandadevelopment={
+Name="Panda Development",
+Icon="panda",
 Args={"ServiceId"},
 
 
 New=a.load'f'.New
 },
-keysvc3={
-Name="System3",
+luarmor={
+Name="Luarmor",
 Icon="rbxassetid://130918283130165",
 Args={"ScriptId","Discord"},
 
@@ -1118,17 +1529,17 @@ New=a.load'g'.New
 
 return[[
 {
-    "name": "uifw",
-    "version": "1.0.0",
-    "main": "./main.lua",
-    "repository": "https://github.com/ui/library",
-    "discord": "",
-    "author": "Dev",
+    "name": "windui",
+    "version": "1.6.62",
+    "main": "./dist/main.lua",
+    "repository": "https://github.com/Footagesus/WindUI",
+    "discord": "https://discord.gg/ftgs-development-hub-1300692552005189632",
+    "author": "Footagesus",
     "description": "Roblox UI Library for scripts",
     "license": "MIT",
     "scripts": {
-        "dev": "",
-        "build": "",
+        "dev": "bash build/build.sh dev $INPUT_FILE",
+        "build": "bash build/build.sh build $INPUT_FILE",
         "live": "python -m http.server 8642",
         "watch": "chokidar . -i 'node_modules' -i 'dist' -i 'build' -c 'npm run dev --'",
         "live-build": "concurrently \"npm run live\" \"npm run watch --\"",
@@ -1140,7 +1551,7 @@ return[[
         "ui-design",
         "script",
         "script-hub",
-        "utility"
+        "exploiting"
     ],
     "devDependencies": {
         "chokidar-cli": "^3.0.0",
@@ -1595,7 +2006,7 @@ local ae=a.load'j'.New
 local af=a.load'k'.New
 
 function aa.new(ag,ah,ai,aj)
-local ak=a.load'l'.Init(nil,ag.Lib.ScreenGui.KeySystem)
+local ak=a.load'l'.Init(nil,ag.WindUI.ScreenGui.KeySystem)
 local al=ak.Create(true)
 
 local am={}
@@ -1905,7 +2316,7 @@ PaddingBottom=UDim.new(0,10),
 })
 
 for d,f in next,ag.KeySystem.API do
-local g=ag.Lib.Services[f.Type]
+local g=ag.WindUI.Services[f.Type]
 if g then
 local h={}
 for j,l in next,g.Args do
@@ -1991,7 +2402,7 @@ ad(r,0.08,{ImageTransparency=1}):Play()
 end)
 ab.AddSignal(r.MouseButton1Click,function()
 m.Copy()
-ag.Lib:Notify{
+ag.WindUI:Notify{
 Title="Key System",
 Content="Key link copied to clipboard.",
 Image="key",
@@ -2036,7 +2447,7 @@ task.wait(.4)
 ai(true)
 end
 else
-ag.Lib:Notify{
+ag.WindUI:Notify{
 Title="Key System. Error",
 Content="Invalid key.",
 Icon="triangle-alert",
@@ -2070,7 +2481,7 @@ end
 if aC then
 handleSuccess(aA)
 else
-ag.Lib:Notify{
+ag.WindUI:Notify{
 Title="Key System. Error",
 Content=aD,
 Icon="triangle-alert",
@@ -2465,7 +2876,7 @@ Buttons=ae.Buttons,
 IconSize=22,
 }
 
-local ag=a.load'l'.Init(nil,ae.Lib.ScreenGui.Popups)
+local ag=a.load'l'.Init(nil,ae.WindUI.ScreenGui.Popups)
 local ah=ag.Create(true,"Popup")
 
 local ai=200
@@ -2487,7 +2898,7 @@ ak=ab.Image(
 af.Icon,
 af.Title..":"..af.Icon,
 0,
-ae.Lib.Window,
+ae.WindUI.Window,
 "Popup",
 true,
 ae.IconThemed,
@@ -3468,18 +3879,18 @@ end
 
 function ad.Init(ae,af)
 if not af.Folder then
-warn"[ Config ] Window.Folder is not specified."
+warn"[ WindUI.ConfigManager ] Window.Folder is not specified."
 return false
 end
 
 ac=af
 ad.Folder=ac.Folder
-ad.Path="GameAssets/"..tostring(ad.Folder).."/config/"
+ad.Path="WindUI/"..tostring(ad.Folder).."/config/"
 
-if not isfolder("GameAssets/"..ad.Folder)then
-makefolder("GameAssets/"..ad.Folder)
-if not isfolder("GameAssets/"..ad.Folder.."/config/")then
-makefolder("GameAssets/"..ad.Folder.."/config/")
+if not isfolder("WindUI/"..ad.Folder)then
+makefolder("WindUI/"..ad.Folder)
+if not isfolder("WindUI/"..ad.Folder.."/config/")then
+makefolder("WindUI/"..ad.Folder.."/config/")
 end
 end
 
@@ -3562,7 +3973,7 @@ end
 
 local aj,ak=pcall(function()
 local aj=readfile or function()
-warn"[ Config ] The config system doesn't work in the studio."
+warn"[ WindUI.ConfigManager ] The config system doesn't work in the studio."
 return nil
 end
 return ab:JSONDecode(aj(ah.Path))
@@ -3649,9 +4060,9 @@ local ak,al=pcall(function()
 return ah:Load()
 end)
 if ak then
-if ac.Debug then print("[ Config ] AutoLoaded config: "..af)end
+if ac.Debug then print("[ WindUI.ConfigManager ] AutoLoaded config: "..af)end
 else
-warn("[ Config ] Failed to AutoLoad config: "..af.." - "..tostring(al))
+warn("[ WindUI.ConfigManager ] Failed to AutoLoad config: "..af.." - "..tostring(al))
 end
 end)
 end
@@ -6073,7 +6484,7 @@ Position=UDim2.new(-10,0,-10,0),
 Visible=false,
 Active=false,
 
-Parent=am.Lib.DropdownGui,
+Parent=am.WindUI.DropdownGui,
 AnchorPoint=Vector2.new(1,0),
 },{
 an.UIElements.Menu,
@@ -7172,7 +7583,7 @@ toclipboard(al.Code)
 if al.OnCopy then al.OnCopy()end
 end)
 if not ao then
-ak.Lib:Notify{
+ak.WindUI:Notify{
 Title="Error",
 Content="The "..an.." is not copied. Error: "..ap,
 Icon="x",
@@ -7180,7 +7591,7 @@ Duration=5,
 }
 end
 end
-end,ak.Lib.UIScale,al)
+end,ak.WindUI.UIScale,al)
 
 function al.SetCode(ao,ap)
 an.Set(ap)
@@ -8123,7 +8534,7 @@ VerticalAlignment="Top",
 
 local aq=ak.ElementsModule
 
-aq.Load(al,ap.Content,aq.Elements,ak.Window,ak.Lib,function()
+aq.Load(al,ap.Content,aq.Elements,ak.Window,ak.WindUI,function()
 if not al.Expandable then
 al.Expandable=true
 an.Visible=true
@@ -8330,7 +8741,7 @@ ak,
 al,
 am.Elements,
 aj.Window,
-aj.Lib,
+aj.WindUI,
 function(an,ao)
 local ap=aj.Tab and aj.Tab.Gap or(aj.Window.NewElements and 1 or 6)
 
@@ -8410,7 +8821,7 @@ ar.Index=#aa.Elements+1
 ar.GlobalIndex=#ah.AllElements+1
 ar.Parent=ae
 ar.Window=ah
-ar.Lib=aj
+ar.WindUI=aj
 ar.UIScale=am
 ar.ElementsModule=al local
 
@@ -8433,7 +8844,7 @@ end)
 if ax then
 ah.PendingConfigData[ar.Flag]=nil
 else
-warn("[ Config ] Failed for '"),..ar.Flag.."': "..tostring(ay))
+warn("[ WindUI ] Failed to apply pending config for '"..ar.Flag.."': "..tostring(ay))
 end
 end)
 end
@@ -8543,7 +8954,7 @@ OnChangeFunc=function(am)end
 
 function am.Init(an,ao,ap,aq)
 Window=an
-Lib=ao
+WindUI=ao
 am.ToolTipParent=ap
 am.TabHighlight=aq
 return am
@@ -8880,7 +9291,7 @@ end
 
 local az=a.load'T'
 
-az.Load(ap,ap.UIElements.ContainerFrame,az.Elements,Window,Lib,nil,az,ao)
+az.Load(ap,ap.UIElements.ContainerFrame,az.Elements,Window,WindUI,nil,az,ao)
 
 
 
@@ -9906,11 +10317,11 @@ math.clamp(au.Y.Offset,as.MinSize.Y,as.MaxSize.Y)
 )
 
 if as.Folder then
-if not isfolder("GameAssets/"..as.Folder)then
-makefolder("GameAssets/"..as.Folder)
+if not isfolder("WindUI/"..as.Folder)then
+makefolder("WindUI/"..as.Folder)
 end
-if not isfolder("GameAssets/"..as.Folder.."/assets")then
-makefolder("GameAssets/"..as.Folder.."/assets")
+if not isfolder("WindUI/"..as.Folder.."/assets")then
+makefolder("WindUI/"..as.Folder.."/assets")
 end
 if not isfolder(as.Folder)then
 makefolder(as.Folder)
@@ -10299,11 +10710,11 @@ if string.find(aF,"http")then
 local d=as.Folder.."/assets/."..aj.SanitizeFilename(aF)..".webm"
 if not isfile(d)then
 local f,g=pcall(function()
-local f=aj.Request{Url=aF,Method="GET",Headers={["User-Agent"]="Mozilla/5.0"}}
+local f=aj.Request{Url=aF,Method="GET",Headers={["User-Agent"]="Roblox/Exploit"}}
 writefile(d,f.Body)
 end)
 if not f then
-warn("[ Bg ] video dl failed: "..tostring(g))
+warn("[ WindUI.Window.Background ] Failed to download video: "..tostring(g))
 return
 end
 end
@@ -10312,10 +10723,10 @@ local f,g=pcall(function()
 return getcustomasset(d)
 end)
 if not f then
-warn("[ Bg ] asset load failed: "..tostring(g))
+warn("[ WindUI.Window.Background ] Failed to load custom asset: "..tostring(g))
 return
 end
-warn"[ UI.Window.Background ] VideoFrame may not work with custom video"
+warn"[ WindUI.Window.Background ] VideoFrame may not work with custom video"
 aF=g
 end
 
@@ -10336,7 +10747,7 @@ elseif b then
 local d=as.Folder.."/assets/."..aj.SanitizeFilename(b)..GetImageExtension(b)
 if not isfile(d)then
 local f,g=pcall(function()
-local f=aj.Request{Url=b,Method="GET",Headers={["User-Agent"]="Mozilla/5.0"}}
+local f=aj.Request{Url=b,Method="GET",Headers={["User-Agent"]="Roblox/Exploit"}}
 writefile(d,f.Body)
 end)
 if not f then
@@ -10445,7 +10856,7 @@ Parent=ar.Parent,
 AnchorPoint=Vector2.new(0.5,0.5),
 Active=true,
 },{
-ar.Lib.UIScaleObj,
+ar.WindUI.UIScaleObj,
 as.AcrylicPaint and as.AcrylicPaint.Frame or nil,
 az,
 aj.NewRoundFrame(as.UICorner,"Squircle",{
@@ -10578,24 +10989,24 @@ PaddingBottom=UDim.new(0,as.UIPadding),
 
 aj.AddSignal(as.UIElements.Main.Main.Topbar.Left:GetPropertyChangedSignal"AbsoluteSize",function()
 local j=0
-local l=as.UIElements.Main.Main.Topbar.Right.UIListLayout.AbsoluteContentSize.X/ar.Lib.UIScale
+local l=as.UIElements.Main.Main.Topbar.Right.UIListLayout.AbsoluteContentSize.X/ar.WindUI.UIScale
 if h and f then
-j=math.max(h.TextBounds.X/ar.Lib.UIScale,f.TextBounds.X/ar.Lib.UIScale)
+j=math.max(h.TextBounds.X/ar.WindUI.UIScale,f.TextBounds.X/ar.WindUI.UIScale)
 else
-j=h.TextBounds.X/ar.Lib.UIScale
+j=h.TextBounds.X/ar.WindUI.UIScale
 end
 if g then
-j=j+(as.IconSize/ar.Lib.UIScale)+(as.UIPadding/ar.Lib.UIScale)+(4/ar.Lib.UIScale)
+j=j+(as.IconSize/ar.WindUI.UIScale)+(as.UIPadding/ar.WindUI.UIScale)+(4/ar.WindUI.UIScale)
 end
 as.UIElements.Main.Main.Topbar.Center.Position=UDim2.new(
 0,
-j+(as.UIPadding/ar.Lib.UIScale),
+j+(as.UIPadding/ar.WindUI.UIScale),
 0.5,
 0
 )
 as.UIElements.Main.Main.Topbar.Center.Size=UDim2.new(
 1,
--j-l-((as.UIPadding*2)/ar.Lib.UIScale),
+-j-l-((as.UIPadding*2)/ar.WindUI.UIScale),
 1,
 0
 )
@@ -10704,7 +11115,7 @@ end
 as.UIElements.BackgroundGradient=aj.NewRoundFrame(as.UICorner,"Squircle",{
 Size=UDim2.new(1,0,1,0),
 Parent=as.UIElements.Main.Background,
-ImageTransparency=as.Transparent and ar.Lib.TransparencyValue or 0
+ImageTransparency=as.Transparent and ar.WindUI.TransparencyValue or 0
 },{
 l
 })
@@ -10798,7 +11209,7 @@ end
 
 function as.SetBackgroundTransparency(l,m)
 local p=math.floor(tonumber(m)*10+0.5)/10
-ar.Lib.TransparencyValue=p
+ar.WindUI.TransparencyValue=p
 as:ToggleTransparency(p>0)
 end
 
@@ -10873,7 +11284,7 @@ function as.OnDestroy(p,r)
 as.OnDestroyCallback=r
 end
 
-if ar.Lib.UseAcrylic then
+if ar.WindUI.UseAcrylic then
 as.AcrylicPaint.AddParent(as.UIElements.Main)
 end
 
@@ -10905,7 +11316,7 @@ task.wait(.06)
 as.Closed=false
 
 al(as.UIElements.Main.Background,0.2,{
-ImageTransparency=as.Transparent and ar.Lib.TransparencyValue or 0,
+ImageTransparency=as.Transparent and ar.WindUI.TransparencyValue or 0,
 },Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 
 if as.UIElements.BackgroundGradient then
@@ -10957,7 +11368,7 @@ task.spawn(function()
 task.wait(.05)
 as.UIElements.Main:WaitForChild"Main".Visible=true
 
-ar.Lib:ToggleAcrylic(true)
+ar.WindUI:ToggleAcrylic(true)
 end)
 end)
 end
@@ -10970,7 +11381,7 @@ aj.SafeCallback(as.OnCloseCallback)
 end)
 end
 
-ar.Lib:ToggleAcrylic(false)
+ar.WindUI:ToggleAcrylic(false)
 
 as.UIElements.Main:WaitForChild"Main".Visible=false
 
@@ -11031,9 +11442,9 @@ as.AcrylicPaint.Model:Destroy()
 end
 as.Destroyed=true
 task.wait(0.4)
-ar.Lib.ScreenGui:Destroy()
-ar.Lib.NotificationGui:Destroy()
-ar.Lib.DropdownGui:Destroy()
+ar.WindUI.ScreenGui:Destroy()
+ar.WindUI.NotificationGui:Destroy()
+ar.WindUI.DropdownGui:Destroy()
 
 aj.DisconnectAll()
 
@@ -11058,9 +11469,9 @@ end
 function as.ToggleTransparency(p,r)
 
 as.Transparent=r
-ar.Lib.Transparent=r
+ar.WindUI.Transparent=r
 
-as.UIElements.Main.Background.ImageTransparency=r and ar.Lib.TransparencyValue or 0
+as.UIElements.Main.Background.ImageTransparency=r and ar.WindUI.TransparencyValue or 0
 
 as.UIElements.MainBar.Background.ImageTransparency=r and 0.97 or 0.95
 
@@ -11096,12 +11507,12 @@ return r
 end
 
 function as.GetUIScale(p,r)
-return ar.Lib.UIScale
+return ar.WindUI.UIScale
 end
 
 function as.SetUIScale(p,r)
-ar.Lib.UIScale=r
-al(ar.Lib.UIScaleObj,.2,{Scale=r},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+ar.WindUI.UIScale=r
+al(ar.WindUI.UIScaleObj,.2,{Scale=r},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
 return as
 end
 
@@ -11177,14 +11588,14 @@ end
 
 local p=a.load'U'
 local r=a.load'V'
-local u=p.Init(as,ar.Lib,ar.Parent.Parent.ToolTips)
+local u=p.Init(as,ar.WindUI,ar.Parent.Parent.ToolTips)
 u:OnChange(function(v)as.CurrentTab=v end)
 
 as.TabModule=p
 
 function as.Tab(v,x)
 x.Parent=as.UIElements.SideBar.Frame
-return u.New(x,ar.Lib.UIScale)
+return u.New(x,ar.WindUI.UIScale)
 end
 
 function as.SelectTab(v,x)
@@ -11192,7 +11603,7 @@ u:SelectTab(x)
 end
 
 function as.Section(v,x)
-return r.New(x,as.UIElements.SideBar.Frame,as.Folder,ar.Lib.UIScale,as)
+return r.New(x,as.UIElements.SideBar.Frame,as.Folder,ar.WindUI.UIScale,as)
 end
 
 function as.IsResizable(v,x)
@@ -11367,8 +11778,8 @@ end
 
 wait()
 
-local R=J.AbsoluteContentSize.X/ar.Lib.UIScale
-local S=L.AbsoluteSize.X/ar.Lib.UIScale
+local R=J.AbsoluteContentSize.X/ar.WindUI.UIScale
+local S=L.AbsoluteSize.X/ar.WindUI.UIScale
 
 if R>S then
 J.FillDirection=Enum.FillDirection.Vertical
@@ -11387,7 +11798,7 @@ local U
 local V=math.huge
 
 for W,X in ipairs(M)do
-local Y=X.AbsoluteSize.X/ar.Lib.UIScale
+local Y=X.AbsoluteSize.X/ar.WindUI.UIScale
 if Y<V then
 V=Y
 U=X
@@ -11666,7 +12077,7 @@ local ar=a.load'q'
 
 local as=protectgui or(syn and syn.protect_gui)or function()end
 
-local au=(gethui and gethui())or aj or game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+local au=gethui and gethui()or(aj or game.Players.LocalPlayer:WaitForChild"PlayerGui")
 
 local av=ap("UIScale",{
 Scale=aa.Scale,
@@ -11675,7 +12086,7 @@ Scale=aa.Scale,
 aa.UIScaleObj=av
 
 aa.ScreenGui=ap("ScreenGui",{
-Name="RbxGuiLayer",
+Name="WindUI",
 Parent=au,
 IgnoreGuiInset=true,
 ScreenInsets="None",
@@ -11702,12 +12113,12 @@ Name="ToolTips"
 })
 
 aa.NotificationGui=ap("ScreenGui",{
-Name="RbxNotifLayer",
+Name="WindUI/Notifications",
 Parent=au,
 IgnoreGuiInset=true,
 })
 aa.DropdownGui=ap("ScreenGui",{
-Name="RbxDropLayer",
+Name="WindUI/Dropdowns",
 Parent=au,
 IgnoreGuiInset=true,
 })
@@ -11841,7 +12252,7 @@ end
 
 
 function aa.Popup(ax,ay)
-ay.Lib=aa
+ay.WindUI=aa
 return a.load'r'.new(ay)
 end
 
@@ -11858,8 +12269,8 @@ aa:SetLanguage(ao.Language)
 function aa.CreateWindow(ax,ay)
 local az=a.load'Y'
 
-if not isfolder"GameAssets"then
-makefolder"GameAssets"
+if not isfolder"WindUI"then
+makefolder"WindUI"
 end
 if ay.Folder then
 makefolder(ay.Folder)
@@ -11867,7 +12278,7 @@ else
 makefolder(ay.Title)
 end
 
-ay.Lib=aa
+ay.WindUI=aa
 ay.Parent=aa.ScreenGui.Window
 
 if aa.Window then
